@@ -1,4 +1,4 @@
-FROM selenium/base:2.53.0
+FROM selenium/base
 MAINTAINER Selenium <selenium-developers@googlegroups.com>
 
 #========================
@@ -23,4 +23,3 @@ RUN chown -R seluser /opt/selenium
 USER seluser
 
 CMD ["/opt/bin/entry_point.sh"]
-
