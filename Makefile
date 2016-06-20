@@ -22,31 +22,31 @@ build: all
 ci: build test
 
 base:
-	cd ./Base && docker build $(BUILD_ARGS) -t $(NAME)/base/$(VERSION) .
+	cd ./Base && docker build $(BUILD_ARGS) -t $(NAME)/base/ .
 
 generate_hub:
 	cd ./Hub && ./generate.sh $(VERSION)
 
 hub: base generate_hub
-	cd ./Hub && docker build $(BUILD_ARGS) -t $(NAME)/hub/$(VERSION) .
+	cd ./Hub && docker build $(BUILD_ARGS) -t $(NAME)/hub/ .
 
 generate_nodebase:
 	cd ./NodeBase && ./generate.sh $(VERSION)
 
 nodebase: base generate_nodebase
-	cd ./NodeBase && docker build $(BUILD_ARGS) -t $(NAME)/node-base/$(VERSION) .
+	cd ./NodeBase && docker build $(BUILD_ARGS) -t $(NAME)/node-base/ .
 
 generate_chrome:
 	cd ./NodeChrome && ./generate.sh $(VERSION)
 
 chrome: nodebase generate_chrome
-	cd ./NodeChrome && docker build $(BUILD_ARGS) -t $(NAME)/node-chrome/$(VERSION) .
+	cd ./NodeChrome && docker build $(BUILD_ARGS) -t $(NAME)/node-chrome/ .
 
 generate_firefox:
 		cd ./NodeFirefox && ./generate.sh $(VERSION)
 
 firefox: nodebase generate_firefox
-	cd ./NodeFirefox && docker build $(BUILD_ARGS) -t $(NAME)/node-firefox/$(VERSION) .
+	cd ./NodeFirefox && docker build $(BUILD_ARGS) -t $(NAME)/node-firefox/ .
 
 generate_standalone_firefox:
 	cd ./Standalone && ./generate.sh StandaloneFirefox node-firefox Firefox $(VERSION)
