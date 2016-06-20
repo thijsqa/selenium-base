@@ -1,5 +1,5 @@
 NAME := selenium
-VERSION := $(or $(VERSION),$(VERSION),'2.43.1')
+VERSION := $(or $(VERSION),$(VERSION),'latest')
 PLATFORM := $(shell uname -s)
 BUILD_ARGS := $(BUILD_ARGS)
 
@@ -22,31 +22,31 @@ build: all
 ci: build test
 
 base:
-	cd ./Base && docker build $(BUILD_ARGS) -t $(NAME)/base/ .
+	cd ./Base && docker build $(BUILD_ARGS) -t $(NAME)/base:$(VERSION) .
 
 generate_hub:
 	cd ./Hub && ./generate.sh $(VERSION)
 
 hub: base generate_hub
-	cd ./Hub && docker build $(BUILD_ARGS) -t $(NAME)/hub/ .
+	cd ./Hub && docker build $(BUILD_ARGS) -t $(NAME)/hub:$(VERSION) .
 
 generate_nodebase:
 	cd ./NodeBase && ./generate.sh $(VERSION)
 
 nodebase: base generate_nodebase
-	cd ./NodeBase && docker build $(BUILD_ARGS) -t $(NAME)/node-base/ .
+	cd ./NodeBase && docker build $(BUILD_ARGS) -t $(NAME)/node-base:$(VERSION) .
 
 generate_chrome:
 	cd ./NodeChrome && ./generate.sh $(VERSION)
 
 chrome: nodebase generate_chrome
-	cd ./NodeChrome && docker build $(BUILD_ARGS) -t $(NAME)/node-chrome/ .
+	cd ./NodeChrome && docker build $(BUILD_ARGS) -t $(NAME)/node-chrome:$(VERSION) .
 
 generate_firefox:
 		cd ./NodeFirefox && ./generate.sh $(VERSION)
 
 firefox: nodebase generate_firefox
-	cd ./NodeFirefox && docker build $(BUILD_ARGS) -t $(NAME)/node-firefox/ .
+	cd ./NodeFirefox && docker build $(BUILD_ARGS) -t $(NAME)/node-firefox:$(VERSION) .
 
 generate_standalone_firefox:
 	cd ./Standalone && ./generate.sh StandaloneFirefox node-firefox Firefox $(VERSION)
