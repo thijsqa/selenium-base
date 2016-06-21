@@ -1,4 +1,4 @@
-FROM thijsqa/base
+FROM selenium/base:2.45.0
 MAINTAINER Selenium <selenium-developers@googlegroups.com>
 
 #========================
