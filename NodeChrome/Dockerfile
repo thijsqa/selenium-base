@@ -1,4 +1,4 @@
-FROM selenium/node-base:2.45.0
+FROM thijsqa/node-base
 MAINTAINER Selenium <selenium-developers@googlegroups.com>
 
 USER root

@@ -1,5 +1,5 @@
 NAME := selenium
-VERSION := $(or $(VERSION),$(VERSION),'2.45.0')
+VERSION := $(or $(VERSION),$(VERSION),'2.43.1')
 PLATFORM := $(shell uname -s)
 
 all: hub chrome firefox chromedebug firefoxdebug standalone_chrome standalone_firefox standalone_debug_chrome standalone_debug_firefox
@@ -9,19 +9,19 @@ build: all
 ci: build test
 
 base:
-	cd ./Base && docker build -t $(NAME)/base:$(VERSION) .
+	cd ./Base && docker build -t $(NAME)/base .
 
 hub: base
-	cd ./Hub && docker build -t $(NAME)/hub:$(VERSION) .
+	cd ./Hub && docker build -t $(NAME)/hub .
 
 nodebase: base
-	cd ./NodeBase && docker build -t $(NAME)/node-base:$(VERSION) .
+	cd ./NodeBase && docker build -t $(NAME)/node-base .
 
 chrome: nodebase
-	cd ./NodeChrome && docker build -t $(NAME)/node-chrome:$(VERSION) .
+	cd ./NodeChrome && docker build -t $(NAME)/node-chrome .
 
 firefox: nodebase
-	cd ./NodeFirefox && docker build -t $(NAME)/node-firefox:$(VERSION) .
+	cd ./NodeFirefox && docker build -t $(NAME)/node-firefox .
 
 generate_standalone_firefox:
 	cd ./Standalone && ./generate.sh StandaloneFirefox node-firefox Firefox $(VERSION)
