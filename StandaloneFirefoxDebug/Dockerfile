@@ -1,4 +1,4 @@
-FROM selenium/standalone-firefox:2.53.0
+FROM thijsqa/standalone-firefox
 MAINTAINER Selenium <selenium-developers@googlegroups.com>
 
 USER root
